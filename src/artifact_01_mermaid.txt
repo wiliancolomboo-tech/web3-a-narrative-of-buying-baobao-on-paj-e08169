@@ -1,0 +1,40 @@
+flowchart TD
+    subgraph ClientLayer ["Client & Orchestration Layer"]
+        CLI["PAJ Automation CLI / Agent"]
+        ENV["Config & Keypair (.env)"]
+        CLI -->|Read Credentials| ENV
+    end
+
+    subgraph AggregationLayer ["Routing & Market Intelligence"]
+        JUP["Jupiter V6 Swap API"]
+        PAJ_POOL["PAJ / Liquidity Curve"]
+        CLI -->|Fetch Optimal Route for $BAOBAO| JUP
+        JUP -->|Query Price & Depth| PAJ_POOL
+    end
+
+    subgraph OnChainLayer ["Solana On-Chain Settlement"]
+        ANCHOR["Anchor Program: baobao_paj_settlement"]
+        USER_VAULT["User Token Escrow Vault (PDA)"]
+        RECEIPT["Execution Receipt State Account"]
+        JITO_TIP["Jito Tip Payment Account"]
+        
+        CLI -->|Construct Atomic Transaction| ANCHOR
+        ANCHOR -->|1. Transfer In WSOL| USER_VAULT
+        ANCHOR -->|2. Execute CPI Route| PAJ_POOL
+        ANCHOR -->|3. Mint Output Verification| RECEIPT
+        ANCHOR -->|4. Pay Validator Tip| JITO_TIP
+    end
+
+    subgraph ValidatorLayer ["Mempool-Less Execution"]
+        JITO_ENGINE["Jito Block Engine (Amsterdam/NY/Tokyo)"]
+        LEADER["Target Slot Leader (Validator)"]
+        CLI -->|Submit Bundle json-rpc| JITO_ENGINE
+        JITO_ENGINE -->|Direct Forward| LEADER
+    end
+
+    subgraph EnterpriseNotification ["Enterprise Telemetry & Audit"]
+        DISCORD["Discord Execution Webhook"]
+        RESEND["Resend Transactional Email API"]
+        CLI -->|Payload: Tx Hash, Execution Price, Gas Tip| DISCORD
+        CLI -->|Audit Receipt HTML PDF/Email| RESEND
+    end

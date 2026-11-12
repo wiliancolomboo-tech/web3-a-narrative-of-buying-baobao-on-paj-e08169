@@ -1,0 +1,23 @@
+# Solana Network RPC (Alchemy / Helius / Triton)
+SOLANA_RPC_URL=https://mainnet.helius-rpc.com/?api-key=YOUR_API_KEY
+SOLANA_PRIVATE_KEY="mock_development_token_00000000000000"
+
+# Target BAOBAO Mint on Solana
+BAOBAO_MINT=BAOBaoXbV2jM8g1VwZqP9gYQzK3G4WqM5K9D1Y7pump
+
+# Program Address
+PROGRAM_ID=PajBaoBaoSett1ement111111111111111111111111
+
+# Jito MEV Settings
+JITO_BLOCK_ENGINE_URL=https://mainnet.block-engine.jito.wtf/api/v1/bundles
+JITO_TIP_ACCOUNT=96gYZGLnJYVFmbjzopPSU6QiEV5fGqZNyN9nmNhvrZU5
+JITO_TIP_LAMPORTS=100000
+
+# Trading Parameters
+SWAP_AMOUNT_SOL=0.25
+SLIPPAGE_BPS=100
+
+# Real-Time Telemetry & Alert Webhooks
+DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/YOUR_ID/YOUR_TOKEN
+RESEND_API_KEY=re_123456789abcdef
+RESEND_RECIPIENT_EMAIL=ops@fund.xyz

@@ -1,0 +1,21 @@
+[package]
+name = "baobao_paj_settlement"
+version = "0.1.0"
+description = "Deterministic Swap Settlement and Telemetry Vault for BAOBAO on Solana"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "baobao_paj_settlement"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+
+[dependencies]
+anchor-lang = "0.30.1"
+anchor-spl = "0.30.1"
+solana-program = "=1.18.26"
